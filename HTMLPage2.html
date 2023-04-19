@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>Cv</h1>
+    <script>
+        async function fetchDetails() {
+            const response = await fetch("https://functionapp220230415180354.azurewebsites.net/api/details");
+            const jsonData = await response.json();
+            document.getElementById("firstnamevalue").innerHTML = jsonData.etuNimi;
+            document.getElementById("email").innerHTML = jsonData.email;
+            document.getElementById("gsm").innerHTML = jsonData.gsm;
+            document.getElementById("city").innerHTML = jsonData.kaupunki;
+        }
+
+        fetchDetails()
+
+        async function fetchWork() {
+            const response = await fetch("https://functionapp220230415180354.azurewebsites.net/api/workexperience");
+            const jsonData = await response.json();
+            jsonData.forEach(details);
+
+            function details(item) {
+
+                document.getElementById("work").innerHTML += "<h6>" + item.yrityksenNimi + "</h6>";
+                document.getElementById("work").innerHTML += "<p>" + item.kuvaus + "</p>";
+                document.getElementById("work").innerHTML += "<p>" + item.tarina + "</p>";
+            }
+        }
+
+        fetchWork();
+
+        async function fetchWorkdetails() {
+            const response = await fetch("https://functionapp220230415180354.azurewebsites.net/api/workdetails");
+            const jsonData = await response.json();
+            jsonData.forEach(details);
+
+            function details(item) {
+                document.getElementById("workdetails").innerHTML += "<p>" + item.lanquage + " " + item.vuodet + "</p>";
+
+            }
+        }
+
+        fetchWorkdetails();
+
+        async function fetcheducation() {
+            const response = await fetch("https://functionapp220230415180354.azurewebsites.net/api/education");
+            const jsonData = await response.json();
+
+            document.getElementById("Koulutus").innerHTML += "<h6>" + jsonData.koulu +"</h6>";
+            document.getElementById("Koulutus").innerHTML += "<p>" + jsonData.tutkinto + "</p>";
+
+        }
+
+        fetcheducation();
+
+    </script>
+    <p><em>nimi=</em> <em id="firstnamevalue"></em> </p>
+    <p><em>email=</em> <em id="email"></em> </p>
+    <p><em>gsm=</em> <em id="gsm"></em> </p>
+    <p><em>Kaupunki=</em> <em id="city"></em> </p>
+
+    <h3> Koulutus</h3>
+    <div id="Koulutus">
+
+    </div>
+
+    <h3> Kokemusvuodet eri tekniikoista</h3>
+    <div id="workdetails">
+
+    </div>
+
+
+
+
+    <h3> Työkokemus</h3>
+    <div id="work">
+
+    </div>
+
+    <h3> Koulutus</h3>
+    <div id="education">
+
+    </div>
+</body>
+</html>
